@@ -1,0 +1,39 @@
+quarkus:
+  mongodb:
+    database: pollingStation
+    connection-string: mongodb://admin:admin@localhost:27017
+    timeout: 30000
+    socket-timeout: 30000
+    connect-timeout: 30000
+    read-timeout: 30000
+  devservices:
+    enabled: false
+  micrometer:
+    export:
+      prometheus:
+        enabled: true
+        path: /metrics
+  http:
+    port: 8082
+  application:
+    name: pooling-station
+  rest-client:
+    extensions-api:
+      url: http://localhost:8086
+      scope: jakarta.inject.Singleton
+      verify-host: false
+kafka:
+  bootstrap:
+    servers: localhost:9092
+mp:
+  messaging:
+    outgoing:
+      process-out:
+        connector: smallrye-kafka
+        topic: votacao-encerrada
+        value:
+          serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
+        failure-strategy: ignore
+validator:
+  token: 5317|a7YCrD1kamix3mYS9YtWjg9Rlpsp63Yv
+
